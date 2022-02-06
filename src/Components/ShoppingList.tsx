@@ -26,26 +26,31 @@ export function ShoppingList() {
         <LocaleSelector />
       </Header>
       <Stack>
-        {filteredCategories.length ? (
-          filteredCategories.map(category => {
-            const items = groupedActiveItems[category._id];
-            return (
-              <Collapsible title={category.name[locale]} key={category._id}>
-                <ItemList>
-                  {items.map(item => (
-                    <Item
-                      key={item._id}
-                      type="active"
-                      onSelect={handleSelectActiveItem}
-                      item={item}
-                    />
-                  ))}
-                </ItemList>
-              </Collapsible>
-            );
-          })
+        {filteredCategories ? (
+          filteredCategories.length ? (
+            filteredCategories.map(category => {
+              const items = groupedActiveItems?.[category._id];
+              if (!items) return null;
+              return (
+                <Collapsible title={category.name[locale]} key={category._id}>
+                  <ItemList>
+                    {items.map(item => (
+                      <Item
+                        key={item._id}
+                        type="active"
+                        onSelect={handleSelectActiveItem}
+                        item={item}
+                      />
+                    ))}
+                  </ItemList>
+                </Collapsible>
+              );
+            })
+          ) : (
+            <p>{t('ShoppingList.empty')}</p>
+          )
         ) : (
-          <p>{t('ShoppingList.empty')}</p>
+          'Loading…'
         )}
       </Stack>
     </Stack>

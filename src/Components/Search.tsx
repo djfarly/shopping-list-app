@@ -52,7 +52,7 @@ export function Search() {
           ))}
         </ItemList>
       ) : null}
-      {!term && recentItems.length ? (
+      {!term && recentItems?.length ? (
         <Collapsible title={t('Search.recentItems')}>
           <ItemList>
             {recentItems.map(result => (
