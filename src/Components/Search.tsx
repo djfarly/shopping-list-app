@@ -6,6 +6,7 @@ import { Collapsible } from './Collapsible';
 import { Item } from './Item';
 import { ItemList } from './ItemList';
 import { Stack } from './Stack';
+import { useRef } from 'react';
 
 const SearchInput = styled.input`
   -webkit-appearance: none;
@@ -22,11 +23,14 @@ export function Search() {
 
   const t = useTranslate();
 
+  const inputRef = useRef<HTMLInputElement>();
+
   return (
     <Stack>
       <h2 id="search-title">{t('Search.title')}</h2>
       <SearchInput
         {...termInputProps}
+        ref={inputRef as any}
         type="search"
         autoFocus
         placeholder={t('Search.placeholder')}
@@ -46,6 +50,7 @@ export function Search() {
               onSelect={item => {
                 handleSelectSearchItem(item);
                 resetTerm();
+                inputRef.current?.focus();
               }}
               item={result}
             />
