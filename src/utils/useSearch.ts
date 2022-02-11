@@ -27,9 +27,11 @@ export function useSearch() {
 
   const results = React.useMemo(() => {
     if (!term || !items) return;
-    const itemsToSearch = items.filter(
-      ({ _id }) => !activeItems.find(activeItem => activeItem._id === _id)
-    );
+    const itemsToSearch = activeItems
+      ? items.filter(
+          ({ _id }) => !activeItems.find(activeItem => activeItem._id === _id)
+        )
+      : items;
     const results = search(term, itemsToSearch, {
       keySelector: ({ name }) => name[locale],
     }).slice(0, 10);
