@@ -38,7 +38,7 @@ export function ItemProvider({ children }: { children: React.ReactNode }) {
   function handleSelectSearchItem(item: ItemInterface) {
     updateRecentItemIds(draft => {
       const index = draft.findIndex(_id => _id === item._id);
-      if (index > 0) draft.splice(index, 1);
+      if (index >= 0) draft.splice(index, 1);
     });
     updateActiveItemIds(draft => {
       draft.push(item._id);
@@ -48,7 +48,7 @@ export function ItemProvider({ children }: { children: React.ReactNode }) {
   function handleSelectActiveItem(item: ItemInterface) {
     updateActiveItemIds(draft => {
       const index = draft.findIndex(_id => _id === item._id);
-      if (index > 0) draft.splice(index, 1);
+      if (index >= 0) draft.splice(index, 1);
     });
     updateRecentItemIds(draft => {
       draft.unshift(item._id);
